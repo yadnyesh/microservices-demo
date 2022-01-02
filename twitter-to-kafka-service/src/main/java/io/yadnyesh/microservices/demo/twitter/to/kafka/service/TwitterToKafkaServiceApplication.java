@@ -1,16 +1,19 @@
 package io.yadnyesh.microservices.demo.twitter.to.kafka.service;
 
-import io.yadnyesh.microservices.demo.twitter.to.kafka.service.config.TwitterToKafkaServiceConfigData;
+
+import io.yadnyesh.microservices.demo.config.TwitterToKafkaServiceConfigData;
 import io.yadnyesh.microservices.demo.twitter.to.kafka.service.runner.StreamRunner;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @Slf4j
 @EnableConfigurationProperties
+@ComponentScan(basePackages = "io.yadnyesh.microservices.demo")
 public class TwitterToKafkaServiceApplication implements CommandLineRunner {
 
     private final TwitterToKafkaServiceConfigData twitterToKafkaServiceConfigData;

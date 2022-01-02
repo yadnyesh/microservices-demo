@@ -1,6 +1,6 @@
 package io.yadnyesh.microservices.demo.twitter.to.kafka.service.runner.impl;
 
-import io.yadnyesh.microservices.demo.twitter.to.kafka.service.config.TwitterToKafkaServiceConfigData;
+import io.yadnyesh.microservices.demo.config.TwitterToKafkaServiceConfigData;
 import io.yadnyesh.microservices.demo.twitter.to.kafka.service.exception.TwitterToKafkaServiceException;
 import io.yadnyesh.microservices.demo.twitter.to.kafka.service.listener.TwitterKafkaStatusListener;
 import io.yadnyesh.microservices.demo.twitter.to.kafka.service.runner.StreamRunner;
@@ -18,8 +18,6 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
-
-import static java.lang.Thread.sleep;
 
 @Component
 @Slf4j

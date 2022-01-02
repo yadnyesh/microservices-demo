@@ -1,6 +1,6 @@
 package io.yadnyesh.microservices.demo.twitter.to.kafka.service.runner.impl;
 
-import io.yadnyesh.microservices.demo.twitter.to.kafka.service.config.TwitterToKafkaServiceConfigData;
+import io.yadnyesh.microservices.demo.config.TwitterToKafkaServiceConfigData;
 import io.yadnyesh.microservices.demo.twitter.to.kafka.service.listener.TwitterKafkaStatusListener;
 import io.yadnyesh.microservices.demo.twitter.to.kafka.service.runner.StreamRunner;
 import lombok.extern.slf4j.Slf4j;
