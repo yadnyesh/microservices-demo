@@ -25,5 +25,5 @@ kafka-config:
   schema-registry-url: http://localhost:8081
   topic-name:
     - twitter-topic
-    num-of-partitions: 3
-    replication-factor: 3
+  num-of-partitions: 3
+  replication-factor: 3
