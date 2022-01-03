@@ -6,6 +6,7 @@
         <artifactId>kafka</artifactId>
         <groupId>io.yadnyesh</groupId>
         <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -23,6 +24,10 @@
         <dependency>
             <groupId>io.yadnyesh</groupId>
             <artifactId>kafka-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.confluent</groupId>
+            <artifactId>kafka-avro-serializer</artifactId>
         </dependency>
     </dependencies>
 
