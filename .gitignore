@@ -35,3 +35,4 @@ build/
 /twitter-to-kafka-service/twitter-to-kafka-service/logs/twitter-to-kafka-service.log
 /twitter-to-kafka-service/logs/
 /twitter-to-kafka-service/twitter-to-kafka-service/logs/archived/twitter-to-kafka-service-log.2022-01-01.0.log
+/twitter-to-kafka-service/twitter-to-kafka-service/logs/archived/twitter-to-kafka-service-log.2022-01-02.0.log
