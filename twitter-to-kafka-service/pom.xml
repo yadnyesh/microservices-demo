@@ -21,14 +21,14 @@
             <groupId>io.yadnyesh</groupId>
             <artifactId>app-config-data</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>io.yadnyesh</groupId>-->
-<!--            <artifactId>kafka-producer</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.yadnyesh</groupId>-->
-<!--            <artifactId>kafka-admin</artifactId>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>io.yadnyesh</groupId>
+            <artifactId>kafka-producer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.yadnyesh</groupId>
+            <artifactId>kafka-admin</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>

@@ -58,11 +58,11 @@
 				<artifactId>kafka-model</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-<!--			<dependency>-->
-<!--				<groupId>io.yadnyesh</groupId>-->
-<!--				<artifactId>kafka-admin</artifactId>-->
-<!--				<version>${project.version}</version>-->
-<!--			</dependency>-->
+			<dependency>
+				<groupId>io.yadnyesh</groupId>
+				<artifactId>kafka-admin</artifactId>
+				<version>${project.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>io.yadnyesh</groupId>
 				<artifactId>kafka-producer</artifactId>
