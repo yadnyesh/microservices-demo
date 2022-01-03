@@ -8,9 +8,13 @@ import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.CreateTopicsResult;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.admin.TopicListing;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.retry.RetryContext;
 import org.springframework.retry.support.RetryTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.ClientResponse;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Collection;
 import java.util.List;
@@ -24,12 +28,30 @@ public class KafkaAdminClient {
     private final RetryConfigData retryConfigData;
     private final AdminClient adminClient;
     private final RetryTemplate retryTemplate;
+    private final WebClient webClient;
 
-    public KafkaAdminClient(KafkaConfigData kafkaConfigData, RetryConfigData retryConfigData, AdminClient adminClient, RetryTemplate retryTemplate) {
+    public KafkaAdminClient(KafkaConfigData kafkaConfigData, RetryConfigData retryConfigData, AdminClient adminClient, RetryTemplate retryTemplate, WebClient webClient) {
         this.kafkaConfigData = kafkaConfigData;
         this.retryConfigData = retryConfigData;
         this.adminClient = adminClient;
         this.retryTemplate = retryTemplate;
+        this.webClient = webClient;
+    }
+
+
+
+    private void sleep(Long sleepTimeMs) {
+        try {
+            Thread.sleep(sleepTimeMs);
+        } catch (InterruptedException e) {
+            throw new KafkaClientException("Error while waiting for creating new topics");
+        }
+    }
+
+    private void checkMaxRetry(int retry, Integer maxRetry) {
+        if(retry > maxRetry) {
+            throw new KafkaClientException("Reached max number of retries for reading Kafka topic(s)");
+        }
     }
 
     public void createTopics() {
@@ -52,6 +74,7 @@ public class KafkaAdminClient {
             while(!isTopicCreated(topics, topic)) {
                 checkMaxRetry(retryCount++, maxRetry);
                 sleep(sleepTimeMs);
+                sleepTimeMs *= multiplier;
                 topics = getTopics();
             }
         }
@@ -61,22 +84,28 @@ public class KafkaAdminClient {
     public void checkSchemaRegistry() {
         int retryCount = 1;
         Integer maxRetry = retryConfigData.getMaxAttempts();
-
-    }
-
-    private void checkMaxRetry(int retry, Integer maxRetry) {
-        if(retry > maxRetry) {
-            throw new KafkaClientException("Reached max number of retries for reading Kafka topic(s)");
+        int multiplier = retryConfigData.getMultiplier().intValue();
+        Long sleepTimeMs = retryConfigData.getSleepTimeMs();
+        while (!getSchemaRegistryStatus().is2xxSuccessful()) {
+            checkMaxRetry(retryCount++, maxRetry);
+            sleep(sleepTimeMs);
+            sleepTimeMs *= multiplier;
         }
     }
 
-    private void sleep(Long sleepTimeMs) {
+    private HttpStatus getSchemaRegistryStatus() {
         try {
-            Thread.sleep(sleepTimeMs);
-        } catch (InterruptedException e) {
-            throw new KafkaClientException("Error while waiting for creating new topics");
+            return webClient
+                    .method(HttpMethod.GET)
+                    .uri(kafkaConfigData.getSchemaRegistryUrl())
+                    .exchange()
+                    .map(ClientResponse::statusCode)
+                    .block();
+        } catch (Exception e) {
+            return HttpStatus.SERVICE_UNAVAILABLE;
         }
     }
+
 
     private boolean isTopicCreated(Collection<TopicListing> topics, String topicName) {
         if(topics == null) {
