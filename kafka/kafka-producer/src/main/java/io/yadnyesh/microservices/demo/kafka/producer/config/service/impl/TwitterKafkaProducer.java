@@ -24,7 +24,7 @@ public class TwitterKafkaProducer implements KafkaProducer<Long, TwitterAvroMode
 
     @Override
     public void send(String topicName, Long key, TwitterAvroModel message) {
-        log.info("Sending message='{}' to topic= '{}'", message, topicName);
+        log.info("SENDING message='{}' to topic= '{}'", message, topicName);
         ListenableFuture<SendResult<Long, TwitterAvroModel>> kafkaResultFuture
                 = kafkaTemplate.send(topicName, key, message);
         addCallback(topicName, message, kafkaResultFuture);
