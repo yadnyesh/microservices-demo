@@ -13,6 +13,7 @@ public class TwitterStatusToAvroTransformer {
                 .setId(status.getId())
                 .setUserId(status.getUser().getId())
                 .setText(status.getText())
+                .setCreatedAt(status.getCreatedAt().getTime())
                 .build();
     }
 }
