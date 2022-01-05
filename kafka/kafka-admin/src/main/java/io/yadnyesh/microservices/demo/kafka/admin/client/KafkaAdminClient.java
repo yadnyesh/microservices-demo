@@ -30,15 +30,13 @@ public class KafkaAdminClient {
     private final RetryTemplate retryTemplate;
     private final WebClient webClient;
 
-    public KafkaAdminClient(KafkaConfigData kafkaConfigData, RetryConfigData retryConfigData, AdminClient adminClient, RetryTemplate retryTemplate, WebClient webClient) {
+    public KafkaAdminClient(RetryTemplate retryTemplate, KafkaConfigData kafkaConfigData, RetryConfigData retryConfigData, AdminClient adminClient,  WebClient webClient) {
         this.kafkaConfigData = kafkaConfigData;
         this.retryConfigData = retryConfigData;
         this.adminClient = adminClient;
         this.retryTemplate = retryTemplate;
         this.webClient = webClient;
     }
-
-
 
     private void sleep(Long sleepTimeMs) {
         try {
